@@ -19,13 +19,15 @@
     <!-- The website stylesheet -->
     <link rel="stylesheet" href="/style.css" />
     <script>
+      window.bad=false
       document.addEventListener('keydown', function(event) {
-            if (event.key=="b"&&event.ctrlKey) {
+            if (event.key=="b"&&event.ctrlKey&&!window.bad) {
               a=document.querySelector("div.wrapper")
               b=document.createElement("video")
               b.src="badapple.mp4"
               b.autoplay=true
               a.appendChild(b)
+              window.bad
             }
         });
       
