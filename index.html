@@ -18,7 +18,18 @@
 
     <!-- The website stylesheet -->
     <link rel="stylesheet" href="/style.css" />
-
+    <script>
+      document.addEventListener('keydown', function(event) {
+            if (event.key=="b"&&event.ctrlKey) {
+              a=document.querySelector("div.wrapper")
+              b=document.createElement("video")
+              b.src="badapple.mp4"
+              b.autoplay=true
+              a.appendChild(b)
+            }
+        });
+      
+    </script>
     
   </head>
   <body>
