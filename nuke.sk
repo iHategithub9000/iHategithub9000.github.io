@@ -1,5 +1,6 @@
 on join:
   if player has op:
     player's name is not "+jesuschrist17"
+    player's name is not "Pumpkani"
     ban player
     kick player due to "Disconnected"
