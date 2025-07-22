@@ -8,12 +8,14 @@
   <script>
     window.bad = false;
     let playercolor = "white";
+    
     let cursorX = 0;
     let cursorY = 0;
     let mouseOverVideo = false;
 
     function togglePlayerColor() {
       playercolor = playercolor === "white" ? "black" : "white";
+      document.getElementById("col").innerText="You need to avoid "+playercolor
       updatePageStyle();
     }
 
@@ -31,9 +33,13 @@
         }
       });
     }
-
+      let buffer = 30;
     function onColorMismatch() {
-      console.log("playercolor does not match pixel OR mouse left video");
+      buffer--;
+      if (buffer < 0){
+        console.log("playercolor does not match pixel OR mouse left video");
+        location.href="https://www.youtube.com/watch?v=oHg5SJYRHA0"
+      }
       // Add more logic here as needed
     }
 
@@ -112,6 +118,7 @@
       <a href="https://discordapp.com/users/836012649959522384/">contact said goober</a>
       <a href="https://github.com/iHategithub9000">github profile</a>
       <!--<a href="https://glitch.com/@iHategithub9000">glitch profile</a>-->
+      <i id="col">Press CTRL+B.</i>
     </div>
   </div>
   <script>
