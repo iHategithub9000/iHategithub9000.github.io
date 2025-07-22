@@ -8,18 +8,17 @@
     <script>
       window.bad = false;
       document.addEventListener('keydown', function (event) {
-        if (event.key == "b" && event.ctrlKey && !window.bad) {
+        if (event.key === "b" && event.ctrlKey && !window.bad) {
           const wrapper = document.querySelector("div.wrapper");
 
           const video = document.createElement("video");
           video.src = "badapple.mp4";
           video.autoplay = true;
-          video.muted = true; // Optional: prevent noise
+          video.controls = false;
           video.width = 640;
           video.height = 360;
           wrapper.appendChild(video);
 
-          // Create hidden canvas to grab pixel data
           const canvas = document.createElement("canvas");
           canvas.width = 640;
           canvas.height = 360;
@@ -27,16 +26,17 @@
           wrapper.appendChild(canvas);
           const ctx = canvas.getContext("2d");
 
-          // On mouse move over video, get pixel color
           video.addEventListener("mousemove", (e) => {
             const rect = video.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+            const x = Math.floor(e.clientX - rect.left);
+            const y = Math.floor(e.clientY - rect.top);
 
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
             const pixel = ctx.getImageData(x, y, 1, 1).data;
-            const rgba = `rgba(${pixel[0]}, ${pixel[1]}, ${pixel[2]}, ${pixel[3] / 255})`;
-            console.log(`Color at (${x}, ${y}): ${rgba}`);
+
+            const avg = (pixel[0] + pixel[1] + pixel[2]) / 3;
+            const shade = avg > 127 ? "white" : "black";
+            console.log(shade);
           });
 
           window.bad = true;
@@ -61,7 +61,7 @@
         if (clicks == 6) {
           location.href = "https://jcw87.github.io/c2-sans-fight/?mode=normal"
         }
-      })
+      });
     </script>
   </body>
 </html>
