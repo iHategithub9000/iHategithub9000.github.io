@@ -8,6 +8,9 @@
   <script>
     window.bad = false;
     let playercolor = "white";
+    let cursorX = 0;
+    let cursorY = 0;
+    let mouseOverVideo = false;
 
     function togglePlayerColor() {
       playercolor = playercolor === "white" ? "black" : "white";
@@ -19,7 +22,6 @@
       document.body.style.backgroundColor = opposite;
       document.body.style.color = playercolor;
 
-      // Optional: invert colors on specific elements, excluding the video
       const video = document.querySelector("video");
       const allChildren = document.body.querySelectorAll("*");
       allChildren.forEach(el => {
@@ -31,8 +33,8 @@
     }
 
     function onColorMismatch() {
-      console.log("playercolor does not match center pixel");
-      // You can do more here, like triggering animations, sounds, etc.
+      console.log("playercolor does not match pixel OR mouse left video");
+      // Add more logic here as needed
     }
 
     document.addEventListener('keydown', function (event) {
@@ -54,28 +56,44 @@
         wrapper.appendChild(canvas);
         const ctx = canvas.getContext("2d");
 
+        // Track mouse over video
+        video.addEventListener("mousemove", (e) => {
+          const rect = video.getBoundingClientRect();
+          cursorX = Math.floor(e.clientX - rect.left);
+          cursorY = Math.floor(e.clientY - rect.top);
+        });
+
+        video.addEventListener("mouseenter", () => {
+          mouseOverVideo = true;
+        });
+
+        video.addEventListener("mouseleave", () => {
+          mouseOverVideo = false;
+        });
+
         video.addEventListener("play", () => {
-          function sampleCenterPixel() {
+          function samplePixel() {
             if (video.paused || video.ended) return;
 
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const centerX = Math.floor(canvas.width / 2);
-            const centerY = Math.floor(canvas.height / 2);
-            const pixel = ctx.getImageData(centerX, centerY, 1, 1).data;
-            const avg = (pixel[0] + pixel[1] + pixel[2]) / 3;
-            const currentColor = avg > 127 ? "white" : "black";
 
-            if (currentColor !== playercolor) {
+            if (!mouseOverVideo) {
               onColorMismatch();
+            } else {
+              const pixel = ctx.getImageData(cursorX, cursorY, 1, 1).data;
+              const avg = (pixel[0] + pixel[1] + pixel[2]) / 3;
+              const currentColor = avg > 127 ? "white" : "black";
+              if (currentColor !== playercolor) {
+                onColorMismatch();
+              }
             }
 
-            requestAnimationFrame(sampleCenterPixel);
+            requestAnimationFrame(samplePixel);
           }
 
-          requestAnimationFrame(sampleCenterPixel);
+          requestAnimationFrame(samplePixel);
         });
 
-        // Toggle player color on video click
         video.addEventListener("click", () => {
           togglePlayerColor();
         });
@@ -104,4 +122,6 @@
         location.href = "https://jcw87.github.io/c2-sans-fight/?mode=normal";
       }
     });
-  </scri
+  </script>
+</body>
+</html>
