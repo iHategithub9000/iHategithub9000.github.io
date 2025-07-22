@@ -1,67 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>painscreen is a dev</title>
-    <link rel="stylesheet" href="/style.css" />
-    <script>
-      window.bad = false;
-      document.addEventListener('keydown', function (event) {
-        if (event.key === "b" && event.ctrlKey && !window.bad) {
-          const wrapper = document.querySelector("div.wrapper");
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>painscreen is a dev</title>
+  <link rel="stylesheet" href="/style.css" />
+  <script>
+    window.bad = false;
+    let playercolor = "white";
 
-          const video = document.createElement("video");
-          video.src = "badapple.mp4";
-          video.autoplay = true;
-          video.controls = false;
-          video.width = 640;
-          video.height = 360;
-          wrapper.appendChild(video);
+    function togglePlayerColor() {
+      playercolor = playercolor === "white" ? "black" : "white";
+      updatePageStyle();
+    }
 
-          const canvas = document.createElement("canvas");
-          canvas.width = 640;
-          canvas.height = 360;
-          canvas.style.display = "none";
-          wrapper.appendChild(canvas);
-          const ctx = canvas.getContext("2d");
+    function updatePageStyle() {
+      const opposite = playercolor === "white" ? "black" : "white";
+      document.body.style.backgroundColor = opposite;
+      document.body.style.color = playercolor;
 
-          video.addEventListener("mousemove", (e) => {
-            const rect = video.getBoundingClientRect();
-            const x = Math.floor(e.clientX - rect.left);
-            const y = Math.floor(e.clientY - rect.top);
+      // Optional: invert colors on specific elements, excluding the video
+      const video = document.querySelector("video");
+      const allChildren = document.body.querySelectorAll("*");
+      allChildren.forEach(el => {
+        if (el !== video && !el.contains(video)) {
+          el.style.color = playercolor;
+          el.style.backgroundColor = opposite;
+        }
+      });
+    }
+
+    function onColorMismatch() {
+      console.log("playercolor does not match center pixel");
+      // You can do more here, like triggering animations, sounds, etc.
+    }
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === "b" && event.ctrlKey && !window.bad) {
+        const wrapper = document.querySelector("div.wrapper");
+
+        const video = document.createElement("video");
+        video.src = "badapple.mp4";
+        video.autoplay = true;
+        video.controls = true;
+        video.width = 640;
+        video.height = 360;
+        wrapper.appendChild(video);
+
+        const canvas = document.createElement("canvas");
+        canvas.width = 640;
+        canvas.height = 360;
+        canvas.style.display = "none";
+        wrapper.appendChild(canvas);
+        const ctx = canvas.getContext("2d");
+
+        video.addEventListener("play", () => {
+          function sampleCenterPixel() {
+            if (video.paused || video.ended) return;
 
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const pixel = ctx.getImageData(x, y, 1, 1).data;
-
+            const centerX = Math.floor(canvas.width / 2);
+            const centerY = Math.floor(canvas.height / 2);
+            const pixel = ctx.getImageData(centerX, centerY, 1, 1).data;
             const avg = (pixel[0] + pixel[1] + pixel[2]) / 3;
-            const shade = avg > 127 ? "white" : "black";
-            console.log(shade);
-          });
+            const currentColor = avg > 127 ? "white" : "black";
 
-          window.bad = true;
-        }
-      });
-    </script>
-  </head>
-  <body>
-    <div class="wrapper">
-      <div class="content" role="main">
-        <h1 class="title" id="header">hey im painscreen</h1>
-        <!--<i>(a stupid goober that barely knows how to code and speaks javascript)</i>-->
-        <a href="https://discordapp.com/users/836012649959522384/">contact said goober</a>
-        <a href="https://github.com/iHategithub9000">github profile</a>
-        <!--<a href="https://glitch.com/@iHategithub9000">glitch profile</a>-->
-      </div>
+            if (currentColor !== playercolor) {
+              onColorMismatch();
+            }
+
+            requestAnimationFrame(sampleCenterPixel);
+          }
+
+          requestAnimationFrame(sampleCenterPixel);
+        });
+
+        // Toggle player color on video click
+        video.addEventListener("click", () => {
+          togglePlayerColor();
+        });
+
+        updatePageStyle();
+        window.bad = true;
+      }
+    });
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="content" role="main">
+      <h1 class="title" id="header">hey im painscreen</h1>
+      <!--<i>(a stupid goober that barely knows how to code and speaks javascript)</i>-->
+      <a href="https://discordapp.com/users/836012649959522384/">contact said goober</a>
+      <a href="https://github.com/iHategithub9000">github profile</a>
+      <!--<a href="https://glitch.com/@iHategithub9000">glitch profile</a>-->
     </div>
-    <script>
-      let clicks = 0;
-      document.getElementById("header").addEventListener('click', () => {
-        clicks++;
-        if (clicks == 6) {
-          location.href = "https://jcw87.github.io/c2-sans-fight/?mode=normal"
-        }
-      });
-    </script>
-  </body>
-</html>
+  </div>
+  <script>
+    let clicks = 0;
+    document.getElementById("header").addEventListener('click', () => {
+      clicks++;
+      if (clicks == 6) {
+        location.href = "https://jcw87.github.io/c2-sans-fight/?mode=normal";
+      }
+    });
+  </scri
