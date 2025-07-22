@@ -22,12 +22,20 @@
   <body>
     <div class="wrapper">
       <div class="content" role="main">
-        <h1 class="title">hey im painscreen</h1>
-        <i>(a stupid goober that barely knows how to code and speaks javascript)</i>
+        <h1 class="title" id="header">hey im painscreen</h1>
+        <!--<i>(a stupid goober that barely knows how to code and speaks javascript)</i>-->
         <a href="https://discordapp.com/users/836012649959522384/">contact said goober</a>
         <a href="https://github.com/iHategithub9000">github profile</a>
         <!--<a href="https://glitch.com/@iHategithub9000">glitch profile</a>-->
       </div>
     </div>
+    <script>
+      let clicks = 0;
+      document.getElementById("header").addEventListener('click',()=>{
+        clicks++;
+        if (clicks==6){
+          location.href="https://jcw87.github.io/c2-sans-fight/?mode=normal"
+        }
+      })
   </body>
 </html>
