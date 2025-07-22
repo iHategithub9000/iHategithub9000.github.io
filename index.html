@@ -15,7 +15,7 @@
 
     function togglePlayerColor() {
       playercolor = playercolor === "white" ? "black" : "white";
-      document.getElementById("col").innerText="You need to avoid "+playercolor
+      document.getElementById("col").innerText="You need to stay on "+playercolor
       updatePageStyle();
     }
 
@@ -46,15 +46,16 @@
 
     document.addEventListener('keydown', function (event) {
       if (event.key === "b" && event.ctrlKey && !window.bad) {
+        
         const wrapper = document.querySelector("div.wrapper");
 
-        const video = document.createElement("video");
-        video.src = "badapple.mp4";
-        video.autoplay = true;
-        video.controls = false;
-        video.width = 640;
-        video.height = 360;
-        wrapper.appendChild(video);
+        window.video = document.createElement("video");
+        window.video.src = "badapple.mp4";
+        window.video.autoplay = true;
+        window.video.controls = false;
+        window.video.width = 640;
+        window.video.height = 360;
+        wrapper.appendChild(window.video);
 
         const canvas = document.createElement("canvas");
         canvas.width = 640;
@@ -62,7 +63,7 @@
         canvas.style.display = "none";
         wrapper.appendChild(canvas);
         const ctx = canvas.getContext("2d");
-
+        togglePlayerColor()
         // Track mouse over video
         video.addEventListener("mousemove", (e) => {
           const rect = video.getBoundingClientRect();
