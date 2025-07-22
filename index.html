@@ -15,7 +15,7 @@
 
     function togglePlayerColor() {
       playercolor = playercolor === "white" ? "black" : "white";
-      document.getElementById("col").innerText="You need to stay on "+playercolor
+      document.getElementById("col").innerText="You need to avoid "+playercolor
       updatePageStyle();
     }
 
@@ -33,10 +33,11 @@
         }
       });
     }
-      let buffer = 30;
+      let buffer = 300;
     function onColorMismatch() {
       buffer--;
       if (buffer < 0){
+        video.pause()
         console.log("playercolor does not match pixel OR mouse left video");
         location.href="https://www.youtube.com/watch?v=oHg5SJYRHA0"
       }
@@ -50,7 +51,7 @@
         const video = document.createElement("video");
         video.src = "badapple.mp4";
         video.autoplay = true;
-        video.controls = true;
+        video.controls = false;
         video.width = 640;
         video.height = 360;
         wrapper.appendChild(video);
