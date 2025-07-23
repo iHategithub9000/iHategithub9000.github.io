@@ -35,14 +35,12 @@
     }
       let buffer = 50;
     function onColorMismatch() {
-      if (debug) console.log("mismatch")
+      console.log("mismatch")
       buffer--;
       if (buffer < 0){
-        if (!debug) video.pause()
-        console.log("playercolor does not match pixel OR mouse left video");
-        if(!debug) location.reload()
-        alert("lost")
-        buffer= 50 //location.href="https://www.youtube.com/watch?v=oHg5SJYRHA0"
+        if(!debug) {video.pause();alert("You lose");location.reload()}
+        console.log("lost")
+        buffer=50
       }
       // Add more logic here as needed
     }
@@ -81,7 +79,10 @@
         video.addEventListener("mouseleave", () => {
           mouseOverVideo = false;
         });
-
+        video.addEventListener('ended', function () {
+            alert('You win!');
+            location.reload()
+          });
         video.addEventListener("play", () => {
           function samplePixel() {
             if (video.paused || video.ended) return;
