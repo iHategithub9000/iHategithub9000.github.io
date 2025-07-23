@@ -35,9 +35,10 @@
     }
       let buffer = 50;
     function onColorMismatch() {
+      if (debug) console.log("mismatch")
       buffer--;
       if (buffer < 0){
-        video.pause()
+        if (!debug) video.pause()
         console.log("playercolor does not match pixel OR mouse left video");
         if(!debug) location.reload()
         alert("lost")
