@@ -12,7 +12,7 @@
     let cursorX = 0;
     let cursorY = 0;
     let mouseOverVideo = false;
-
+    window.debug=false;
     function togglePlayerColor() {
       playercolor = playercolor === "white" ? "black" : "white";
       document.getElementById("col").innerText="You need to stay on "+playercolor
@@ -39,7 +39,9 @@
       if (buffer < 0){
         video.pause()
         console.log("playercolor does not match pixel OR mouse left video");
-        location.reload()//location.href="https://www.youtube.com/watch?v=oHg5SJYRHA0"
+        if(!debug) location.reload()
+        alert("lost")
+        buffer= 50 //location.href="https://www.youtube.com/watch?v=oHg5SJYRHA0"
       }
       // Add more logic here as needed
     }
