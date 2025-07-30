@@ -36,7 +36,7 @@
       let buffer = 50;
     function onColorMismatch() {
       console.log("mismatch")
-      if(!debug){new Audio('https://painscreen.is-a.dev/undertale-damage-taken-101soundboards.mp3').play();}
+      if(!debug){x=new Audio('https://painscreen.is-a.dev/undertale-damage-taken-101soundboards.mp3');x.volume=0.4;x.play();}
       buffer--;
       if (buffer < 0){
         if(!debug) {video.pause();alert("You lose");location.reload()}
