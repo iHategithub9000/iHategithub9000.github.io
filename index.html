@@ -33,15 +33,16 @@
         }
       });
     }
-      let buffer = 50;
+      let buffer = 300;
     function onColorMismatch() {
       console.log("mismatch")
+      document.getElementById("helth").innerText="Health: "+buffer
       if(!debug){x=new Audio('https://painscreen.is-a.dev/undertale-damage-taken-101soundboards.mp3');x.volume=0.4;x.play();}
       buffer--;
       if (buffer < 0){
         if(!debug) {video.pause();alert("You lose");location.reload()}
         console.log("lost")
-        buffer=50
+        buffer=300
       }
       // Add more logic here as needed
     }
@@ -126,6 +127,7 @@
       <a href="https://github.com/iHategithub9000">github profile</a>
       <!--<a href="https://glitch.com/@iHategithub9000">glitch profile</a>-->
       <i id="col">Press CTRL+B.</i>
+      <i id="helth">Health</i>
     </div>
   </div>
   <script>
