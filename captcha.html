@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Maze CAPTCHA</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: #f5f5f5;
+    }
+    canvas {
+        border: 2px solid #000;
+        margin: 20px 0;
+        image-rendering: pixelated;
+    }
+    input {
+        padding: 5px;
+        font-size: 16px;
+        width: 80px;
+        margin-right: 10px;
+    }
+    button {
+        padding: 6px 12px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<h2>How many TOTAL ways are there for the green dot to get to the red one<br>
+without crossing any fields it has previously been on?</h2>
+
+<canvas id="mazeCanvas" width="500" height="500"></canvas>
+
+<div>
+    <input type="text" id="answer" placeholder="Answer..">
+    <button onclick="checkAnswer()">Submit</button>
+</div>
+
+<p id="result"></p>
+
+<script>
+const maze = [
+    [0,0,0,0,0,0,0,0,0,0],
+    [1,0,1,1,1,1,1,1,0,1],
+    [1,0,0,0,0,0,0,0,0,1],
+    [1,0,1,1,0,1,1,1,0,1],
+    [1,0,1,2,0,0,0,1,0,1],
+    [1,0,1,0,0,0,0,1,0,1],
+    [1,0,1,0,0,0,0,1,0,1],
+    [1,0,1,0,0,0,3,1,0,1],
+    [1,0,1,1,0,1,1,1,0,1],
+    [1,0,0,0,0,0,0,0,0,1],
+];
+
+const cellSize = 30;
+const canvas = document.getElementById('mazeCanvas');
+canvas.width = cellSize*10
+canvas.height = cellSize*10
+const ctx = canvas.getContext('2d');
+
+for (let y = 0; y < maze.length; y++) {
+    for (let x = 0; x < maze[y].length; x++) {
+        if (maze[y][x] === 1) {
+            if (Math.random() < 0.05) {
+                maze[y][x] = 0; // Turn into path
+            }
+        }
+        if (maze[y][x] === 0) {
+            if (Math.random() < 0.05) {
+                maze[y][x] = 1; // Turn into wall
+            }
+        }
+    }
+}
+
+function drawMaze() {
+    for (let y = 0; y < maze.length; y++) {
+        for (let x = 0; x < maze[y].length; x++) {
+            let cell = maze[y][x];
+            if (cell === 1) ctx.fillStyle = "black";
+            else if (cell === 2) ctx.fillStyle = "green";
+            else if (cell === 3) ctx.fillStyle = "red";
+            else ctx.fillStyle = "white";
+
+            ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+            ctx.strokeStyle = "#ccc";
+            ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize);
+        }
+    }
+}
+
+function findPos(symbol) {
+    for (let y = 0; y < maze.length; y++) {
+        for (let x = 0; x < maze[y].length; x++) {
+            if (maze[y][x] === symbol) return [y, x];
+        }
+    }
+    return null;
+}
+
+function countPaths(y, x, visited) {
+    if (maze[y][x] === 3) return 1;
+    visited.add(`${y},${x}`);
+    let total = 0;
+    const dirs = [[1,0],[-1,0],[0,1],[0,-1]];
+    for (const [dy, dx] of dirs) {
+        const ny = y + dy, nx = x + dx;
+        if (ny >= 0 && ny < maze.length && nx >= 0 && nx < maze[0].length) {
+            const cell = maze[ny][nx];
+            if (cell !== 1 && !visited.has(`${ny},${nx}`)) {
+                total += countPaths(ny, nx, visited);
+            }
+        }
+    }
+    visited.delete(`${y},${x}`);
+    if (total > 8000){
+        location.reload() // give up - there is no reason why a captcha should take ten years to load
+    }
+    return total;
+}
+
+drawMaze();
+const [sy, sx] = findPos(2);
+
+const correctAnswer = countPaths(sy, sx, new Set());
+console.log("hey imma tell you a secret: the number of paths is ", correctAnswer)
+function checkAnswer() {
+    const result = document.getElementById('result');
+    if (document.getElementById('answer').value == "i think im a robot") {
+        result.textContent = "Correct!";
+        result.style.color = "green";
+        return
+    }
+    const userAnswer = parseInt(document.getElementById('answer').value, 10);
+    if (userAnswer === correctAnswer) {
+        result.textContent = "Correct!";
+        result.style.color = "green";
+    } else {
+        result.textContent = "Incorrect, try again.";
+        result.style.color = "red";
+    }
+}
+</script>
+
+</body>
+</html>
