@@ -5,118 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>painscreen is a dev</title>
   <link rel="stylesheet" href="/style.css" />
-  <script>
-    window.bad = false;
-    let playercolor = "white";
-    
-    let cursorX = 0;
-    let cursorY = 0;
-    let mouseOverVideo = false;
-    window.debug=false;
-    function togglePlayerColor() {
-      playercolor = playercolor === "white" ? "black" : "white";
-      document.getElementById("col").innerText="You need to stay on "+playercolor
-      updatePageStyle();
-    }
-
-    function updatePageStyle() {
-      const opposite = playercolor === "white" ? "black" : "white";
-      document.body.style.backgroundColor = opposite;
-      document.body.style.color = playercolor;
-
-      const video = document.querySelector("video");
-      const allChildren = document.body.querySelectorAll("*");
-      allChildren.forEach(el => {
-        if (el !== video && !el.contains(video)) {
-          el.style.color = playercolor;
-          el.style.backgroundColor = opposite;
-        }
-      });
-    }
-      let buffer = 300;
-    function onColorMismatch() {
-      console.log("mismatch")
-      document.getElementById("helth").innerText="Health: "+buffer
-      if(!debug){x=new Audio('https://painscreen.is-a.dev/undertale-damage-taken-101soundboards.mp3');x.volume=0.4;x.play();}
-      buffer--;
-      if (buffer < 0){
-        if(!debug) {video.pause();alert("You lose");location.reload()}
-        console.log("lost")
-        buffer=300
-      }
-      // Add more logic here as needed
-    }
-
-    document.addEventListener('keydown', function (event) {
-      if (event.key === "b" && event.ctrlKey && !window.bad) {
-        
-        const wrapper = document.querySelector("div.wrapper");
-
-        window.video = document.createElement("video");
-        window.video.src = "badapple.mp4";
-        window.video.autoplay = true;
-        window.video.controls = false;
-        window.video.width = 640;
-        window.video.height = 360;
-        wrapper.appendChild(window.video);
-
-        const canvas = document.createElement("canvas");
-        canvas.width = 640;
-        canvas.height = 360;
-        canvas.style.display = "none";
-        wrapper.appendChild(canvas);
-        const ctx = canvas.getContext("2d");
-        togglePlayerColor()
-        // Track mouse over video
-        video.addEventListener("mousemove", (e) => {
-          const rect = video.getBoundingClientRect();
-          cursorX = Math.floor(e.clientX - rect.left);
-          cursorY = Math.floor(e.clientY - rect.top);
-        });
-
-        video.addEventListener("mouseenter", () => {
-          mouseOverVideo = true;
-        });
-
-        video.addEventListener("mouseleave", () => {
-          mouseOverVideo = false;
-        });
-        video.addEventListener('ended', function () {
-            alert('You win!');
-            location.reload()
-          });
-        video.addEventListener("play", () => {
-          function samplePixel() {
-            if (video.paused || video.ended) return;
-
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-            if (!mouseOverVideo) {
-              onColorMismatch();
-            } else {
-              const pixel = ctx.getImageData(cursorX, cursorY, 1, 1).data;
-              const avg = (pixel[0] + pixel[1] + pixel[2]) / 3;
-              const currentColor = avg > 127 ? "white" : "black";
-              if (currentColor !== playercolor) {
-                onColorMismatch();
-              }
-            }
-
-            requestAnimationFrame(samplePixel);
-          }
-
-          requestAnimationFrame(samplePixel);
-        });
-
-        video.addEventListener("click", () => {
-          togglePlayerColor();
-        });
-
-        updatePageStyle();
-        window.bad = true;
-      }
-    });
-  </script>
+  <script src="peak.js"></script>
 </head>
 <body>
   <div class="wrapper">
@@ -130,14 +19,6 @@
       <i id="helth"></i>
     </div>
   </div>
-  <script>
-    let clicks = 0;
-    document.getElementById("header").addEventListener('click', () => {
-      clicks++;
-      if (clicks == 6) {
-        location.href = "https://jcw87.github.io/c2-sans-fight/?mode=normal";
-      }
-    });
-  </script>
+  <script src="peak.js"></script>
 </body>
 </html>
