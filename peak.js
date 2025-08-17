@@ -114,7 +114,7 @@ function onColorMismatch() {
 }
 
 document.addEventListener('keydown', function (event) {
-  if (event.key === "b" && event.ctrlKey && !window.bad) {
+  if (event.key === "b" && event.altKey && event.ctrlKey && !window.bad) {
     
     const wrapper = document.querySelector("div.wrapper");
 
