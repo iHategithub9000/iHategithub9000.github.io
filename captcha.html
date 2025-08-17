@@ -132,12 +132,20 @@ function checkAnswer() {
     if (document.getElementById('answer').value == "i think im a robot") {
         result.textContent = "Correct!";
         result.style.color = "green";
+        setTimeout(()=>{
+            localStorage.removeItem("requiresCaptcha");
+            location.href='/'
+        },1000)
         return
     }
     const userAnswer = parseInt(document.getElementById('answer').value, 10);
     if (userAnswer === correctAnswer) {
         result.textContent = "Correct!";
         result.style.color = "green";
+        setTimeout(()=>{
+            localStorage.removeItem("requiresCaptcha");
+            location.href='/'
+        },1000)
     } else {
         result.textContent = "Incorrect, try again.";
         result.style.color = "red";

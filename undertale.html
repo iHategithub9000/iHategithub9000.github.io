@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Iframe Window</title>
+  <style>
+    body {
+      background: #000;
+      font-family: sans-serif;
+    }
+    .closed {
+      transform: scale(-0.001);
+    }
+    .window {   
+      transition: 500ms;
+      z-index: 999999;
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      width: 640px;
+      height: 480px;
+      border: 2px solid #333;
+      box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+      background: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .titlebar {
+      background: white;
+      color: black;
+      padding: 6px 10px;
+      cursor: move;
+      user-select: none;
+    }
+
+    .iframe-container {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .iframe-container iframe {
+      transform: scale(1.8);
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+    <p id="continue" style="text-align: center; color:white;"><img height=100 src="/undertale-red-soul-logo-png_seeklogo-475824.png"></img><br>UNDERTALE.exe</p>
+  <div class="window closed" id="window">
+    <div class="titlebar">Leading Brand UNDERTALE-type software</div>
+    <div class="iframe-container">
+      <iframe id="iframe" src="x"></iframe>
+    </div>
+  </div>
+
+  <script>
+    const win = document.getElementById("window");
+    const bar = win.querySelector(".titlebar");
+
+    let offsetX = 0, offsetY = 0, dragging = false;
+
+    bar.addEventListener("mousedown", (e) => {
+      dragging = true;
+      offsetX = e.clientX - win.offsetLeft;
+      offsetY = e.clientY - win.offsetTop;
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if (!dragging) return;
+      win.style.left = (e.clientX - offsetX) + "px";
+      win.style.top = (e.clientY - offsetY) + "px";
+    });
+
+    document.addEventListener("mouseup", () => {
+      dragging = false;
+    });
+    document.getElementById("continue").onclick=()=>{
+        document.getElementById("continue").remove()
+        document.getElementById("iframe").src="https://jcw87.github.io/c2-sans-fight/?mode=normal"
+        document.getElementById("iframe").click()
+        document.getElementsByClassName("window").window.classList.remove("closed")
+    }
+  </script>
+</body>
+</html>
