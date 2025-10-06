@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>painscreen is a dev</title>
   <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" type="text/css" href="https://gitcdn.xyz/repo/pi0/clippyjs/master/assets/clippy.css" media="all">
 </head>
 <body>
   <div class="wrapper">
@@ -25,6 +26,19 @@
   </div>
   <script src="peak.js"></script>
   <img style="display: none" src="x" onerror="eval(atob('ZnVuY3Rpb24gXzB4M2RiMCgpe3ZhciBfMHg1OTlkNjc9WyczMzUxcVpaQnBHJywnZnJvbScsJzkxNndDdmtRRycsJ3JlbW92ZScsJzI0MzQzMjBWT3NCc0gnLCc3MTc3MzhUVnhGeHknLCc0MjM3MzczeW9mU0NNJywnaUhhdGVnaXRodWI5MDAwLmdpdGh1Yi5pbycsJ2ZvckVhY2gnLCdob3N0JywnMTM2NDk2MHhuTmRzWCcsJ3BhaW5zY3JlZW4uaXMtYS5kZXYnLCcyMDIxMjkwUUJIbkF2JywnMTY1OTQ3NjhsVEN5eFMnXTtfMHgzZGIwPWZ1bmN0aW9uKCl7cmV0dXJuIF8weDU5OWQ2Nzt9O3JldHVybiBfMHgzZGIwKCk7fXZhciBfMHg0MDk4OTM9XzB4MWUzZjtmdW5jdGlvbiBfMHgxZTNmKF8weDNhZDFhMSxfMHgzNGM1ZTgpe3ZhciBfMHgzZGIwMmM9XzB4M2RiMCgpO3JldHVybiBfMHgxZTNmPWZ1bmN0aW9uKF8weDFlM2Y0YyxfMHg0YjY3MTEpe18weDFlM2Y0Yz1fMHgxZTNmNGMtMHhmZTt2YXIgXzB4NWUwNzIyPV8weDNkYjAyY1tfMHgxZTNmNGNdO3JldHVybiBfMHg1ZTA3MjI7fSxfMHgxZTNmKF8weDNhZDFhMSxfMHgzNGM1ZTgpO30oZnVuY3Rpb24oXzB4MTY0ZDNmLF8weDUwOTE3Myl7dmFyIF8weDQ5YjhjPV8weDFlM2YsXzB4MjFiMDY5PV8weDE2NGQzZigpO3doaWxlKCEhW10pe3RyeXt2YXIgXzB4MjUxMDk5PXBhcnNlSW50KF8weDQ5YjhjKCcweDEwMicpKS8weDErLXBhcnNlSW50KF8weDQ5YjhjKDB4MTA3KSkvMHgyK3BhcnNlSW50KF8weDQ5YjhjKDB4MTBiKSkvMHgzKigtcGFyc2VJbnQoXzB4NDliOGMoJzB4ZmYnKSkvMHg0KSstcGFyc2VJbnQoXzB4NDliOGMoJzB4MTA5JykpLzB4NSstcGFyc2VJbnQoXzB4NDliOGMoJzB4MTAxJykpLzB4NistcGFyc2VJbnQoXzB4NDliOGMoJzB4MTAzJykpLzB4NytwYXJzZUludChfMHg0OWI4YygweDEwYSkpLzB4ODtpZihfMHgyNTEwOTk9PT1fMHg1MDkxNzMpYnJlYWs7ZWxzZSBfMHgyMWIwNjlbJ3B1c2gnXShfMHgyMWIwNjlbJ3NoaWZ0J10oKSk7fWNhdGNoKF8weDUzNWM2NSl7XzB4MjFiMDY5WydwdXNoJ10oXzB4MjFiMDY5WydzaGlmdCddKCkpO319fShfMHgzZGIwLDB4NmIwZGUpKTtpZihsb2NhdGlvblsnaG9zdCddIT1fMHg0MDk4OTMoMHgxMDgpJiZsb2NhdGlvbltfMHg0MDk4OTMoMHgxMDYpXSE9XzB4NDA5ODkzKCcweDEwNCcpKXNldEludGVydmFsKCgpPT57dmFyIF8weDUxN2M1YT1fMHg0MDk4OTM7QXJyYXlbXzB4NTE3YzVhKDB4ZmUpXShkb2N1bWVudFsncXVlcnlTZWxlY3RvckFsbCddKCcqJykpW18weDUxN2M1YSgweDEwNSldKF8weDEzNjllZj0+e3ZhciBfMHhiODk1MTc9XzB4NTE3YzVhO18weDEzNjllZltfMHhiODk1MTcoJzB4MTAwJyldKCk7fSk7fSk7'))">
+  <script src="https://unpkg.com/jquery@3.2.1"></script>
+  <script src="https://unpkg.com/clippyjs@latest"></script>
+  <script type="text/javascript">
+    clippy.load('Clippy', function(agent) {
+        window.cagent=agent
+        agent.show();
+    });
+    setInterval(()=>{
+      anim=cagent.animations().filter(str => str.includes("Idle"))[Math.floor(Math.random() * cagent.animations().filter(str => str.includes("Idle")).length)]
+      console.log("play anim", anim)
+      cagent.play(anim)
+    },10000)  
+</script>
 </body>
 </html>
 
