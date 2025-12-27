@@ -1,0 +1,4 @@
+command w:
+  trigger:
+    loop 10000 times:
+      broadcast ""
