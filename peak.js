@@ -104,7 +104,6 @@ function updatePageStyle() {
 function onColorMismatch() {
   console.log("mismatch")
   document.getElementById("helth").innerText="Health: "+buffer
-  if(!debug){x=new Audio('https://painscreen.is-a.dev/undertale-damage-taken-101soundboards.mp3');x.volume=0.4;x.play();}
   buffer--;
   if (buffer < 0){
     if(!debug) {video.pause();alert("You lose");location.reload()}
