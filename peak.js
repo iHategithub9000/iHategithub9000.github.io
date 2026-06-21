@@ -117,6 +117,7 @@ document.addEventListener('keydown', function (event) {
   if (event.key === "b" && event.altKey && event.ctrlKey && !window.bad) {
     
     const wrapper = document.querySelector("div.wrapper");
+    document.getElementById("tetoimg").remove();
 
     window.video = document.createElement("video");
     window.video.src = "badapple.mp4";
